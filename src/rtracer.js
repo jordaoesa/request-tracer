@@ -56,6 +56,11 @@ const expressMiddleware = (setResHeaderFn) => {
         setResHeaderFn(res, headerName, requestId)
       }
 
+      requestId = `[${requestId}]`
+      if (req.user?._id) {
+        requestId = `${requestId} [${req.user?._id}]`
+      }
+
       als.run(requestId, () => {
         wrapHttpEmitters(req, res)
         next()
